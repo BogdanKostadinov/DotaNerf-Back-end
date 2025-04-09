@@ -88,6 +88,7 @@ public class GameController : ControllerBase
         // Create a new game entity
         var newGame = new Game
         {
+            DateCreated = DateTime.UtcNow,
             WinningTeam = createGameDto.WinningTeam,
             RadiantTeam = new Team
             {

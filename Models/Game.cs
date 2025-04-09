@@ -8,6 +8,7 @@ public class Game
     [Key]
     public Guid Id { get; set; } = Guid.NewGuid();
     public required TeamName WinningTeam { get; set; }
+    public DateTime DateCreated { get; set; } = DateTime.UtcNow;
 
     public Guid RadiantTeamId { get; set; }
     public Guid DireTeamId { get; set; }
