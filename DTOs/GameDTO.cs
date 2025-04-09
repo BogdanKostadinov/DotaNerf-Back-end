@@ -8,11 +8,12 @@ public class GameDTO
     public TeamName WinningTeam { get; set; }
     public required TeamDTO RadiantTeam { get; set; }
     public required TeamDTO DireTeam { get; set; }
+    public DateTime DateCreated { get; set; }
 }
 
 public class CreateGameDTO
 {
     public TeamName WinningTeam { get; set; }
-    public required CreateTeamDTO RadiantTeam { get; set; } 
-    public required CreateTeamDTO DireTeam { get; set; } 
+    public required CreateTeamDTO RadiantTeam { get; set; }
+    public required CreateTeamDTO DireTeam { get; set; }
 }
