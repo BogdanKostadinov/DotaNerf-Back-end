@@ -1,7 +1,5 @@
-using AutoMapper;
-using DotaNerf.Data;
+using DotaNerf.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace DotaNerf.Controllers;
 
@@ -9,41 +7,28 @@ namespace DotaNerf.Controllers;
 [Route("/players")]
 public class PlayerController : ControllerBase
 {
-    private readonly DataContext _context;
-    private readonly IMapper _mapper;
+    private readonly IPlayerRepository _playerRepository;
 
-    public PlayerController(DataContext context, IMapper mapper)
+    public PlayerController(IPlayerRepository playerRepository)
     {
-        _context = context;
-        _mapper = mapper;
+        _playerRepository = playerRepository;
     }
 
     [HttpGet(Name = "GetPlayers")]
     public async Task<IActionResult> GetPlayersAsync()
     {
-        var players = await _context.Players
-            .Include(p => p.PlayerDetails)
-            .Include(p => p.PlayerStats)
-            .ToListAsync();
-
+        var players = await _playerRepository.GetPlayersAsync();
         return Ok(players);
     }
 
-
-    [HttpGet("{id}", Name = "GetPlayer")]
-    public async Task<IActionResult> GetPlayerAsync(Guid id)
+    [HttpGet("{id}", Name = "GetPlayerById")]
+    public async Task<IActionResult> GetPlayerByIdAsync(Guid id)
     {
-        var player = await _context.Players
-            .Include(p => p.PlayerDetails)
-            .Include(p => p.PlayerStats)
-            .AsTracking()
-            .FirstOrDefaultAsync(m => m.Id == id);
-
+        var player = await _playerRepository.GetPlayerByIdAsync(id);
         if (player is null)
         {
             return NotFound();
         }
-
         return Ok(player);
     }
 }
