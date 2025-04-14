@@ -1,4 +1,4 @@
-﻿using DotaNerf.Models;
+﻿using DotaNerf.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

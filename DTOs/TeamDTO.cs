@@ -1,4 +1,4 @@
-using DotaNerf.Models;
+using DotaNerf.Entities;
 
 namespace DotaNerf.DTOs;
 

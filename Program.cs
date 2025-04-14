@@ -1,4 +1,7 @@
 using DotaNerf.Data;
+using DotaNerf.Interfaces;
+using DotaNerf.Repositories;
+using DotaNerf.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +17,14 @@ builder.Services.AddCors(options =>
                   .AllowAnyHeader();
         });
 });
+
+// Register repositories
+builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
+builder.Services.AddScoped<IHeroRepository, HeroRepository>();
+
+// Register services
+builder.Services.AddScoped<IGameService, GameService>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddDbContext<DataContext>(options =>

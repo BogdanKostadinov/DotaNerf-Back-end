@@ -1,4 +1,4 @@
-﻿namespace DotaNerf.Models;
+﻿namespace DotaNerf.Entities;
 
 public class PlayerGame
 {

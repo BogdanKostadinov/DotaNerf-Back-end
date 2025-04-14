@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using DotaNerf.Data;
 using DotaNerf.DTOs;
-using DotaNerf.Models;
+using DotaNerf.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace DotaNerf.Controllers;
 
@@ -11,27 +9,23 @@ namespace DotaNerf.Controllers;
 [Route("/games")]
 public class GameController : ControllerBase
 {
-    private readonly DataContext _context;
     private readonly IMapper _mapper;
-    public GameController(DataContext context, IMapper mapper)
+    private readonly IGameService _gameService;
+    private readonly IGameRepository _gameRepository;
+    public GameController(
+           IMapper mapper, 
+           IGameService gameService,
+           IGameRepository gameRepository)
     {
-        _context = context;
         _mapper = mapper;
+        _gameService = gameService;
+        _gameRepository = gameRepository;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetGamesAsync()
     {
-        var games = await _context.Games
-            .Include(g => g.RadiantTeam)
-                .ThenInclude(t => t!.Players)
-                    .ThenInclude(p => p.PlayerStats)
-                        .ThenInclude(ps => ps.HeroPlayed)
-            .Include(g => g.DireTeam)
-                .ThenInclude(t => t!.Players)
-                    .ThenInclude(p => p.PlayerStats)
-                        .ThenInclude(ps => ps.HeroPlayed)
-            .ToListAsync();
+        var games = await _gameRepository.GetGamesAsync();
 
         var gameDtos = games.Select(game => _mapper.Map<GameDTO>(game, opt => opt.Items["GameId"] = game.Id)).ToList();
 
@@ -46,16 +40,7 @@ public class GameController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetGameAsync(Guid id)
     {
-        var game = await _context.Games
-            .Include(g => g.RadiantTeam)
-                .ThenInclude(t => t!.Players)
-                .ThenInclude(p => p.PlayerStats.Where(ps => ps.GameId == id))
-                .ThenInclude(ps => ps.HeroPlayed)
-            .Include(g => g.DireTeam)
-                .ThenInclude(t => t!.Players)
-                .ThenInclude(p => p.PlayerStats.Where(ps => ps.GameId == id))
-                .ThenInclude(ps => ps.HeroPlayed)
-            .FirstOrDefaultAsync(g => g.Id == id);
+        var game = await _gameRepository.GetGameByIdAsync(id);
 
         if (game == null)
         {
@@ -69,166 +54,27 @@ public class GameController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateGame([FromBody] CreateGameDTO createGameDto)
     {
-        // Validate the incoming data
-        if (createGameDto == null)
+        try
         {
-            return BadRequest("Request data is null");
+            var gameId = await _gameService.CreateGameAsync(createGameDto);
+            return Ok(new { Message = "Game created successfully", GameId = gameId });
         }
-
-        if (createGameDto.RadiantTeam == null || createGameDto.DireTeam == null)
+        catch (ArgumentNullException ex)
         {
-            return BadRequest("Both RadiantTeam and DireTeam are required");
+            return BadRequest(ex.Message);
         }
-
-        if (!createGameDto.RadiantTeam.Players.Any() || !createGameDto.DireTeam.Players.Any())
+        catch (ArgumentException ex)
         {
-            return BadRequest("Both teams must have players");
+            return BadRequest(ex.Message);
         }
-
-        // Create a new game entity
-        var newGame = new Game
+        catch (KeyNotFoundException ex)
         {
-            DateCreated = DateTime.UtcNow,
-            WinningTeam = createGameDto.WinningTeam,
-            RadiantTeam = new Team
-            {
-                Id = Guid.NewGuid(),
-                Name = createGameDto.RadiantTeam.Name,
-                Players = new List<Player>()
-            },
-            DireTeam = new Team
-            {
-                Id = Guid.NewGuid(),
-                Name = createGameDto.DireTeam.Name,
-                Players = new List<Player>()
-            }
-        };
-
-        await _context.Games.AddAsync(newGame);
-        await _context.SaveChangesAsync();
-
-        // Process RadiantTeam players
-        foreach (var playerDto in createGameDto.RadiantTeam.Players)
-        {
-            var existingPlayer = await _context.Players
-                .Include(p => p.PlayerDetails)
-                .Include(p => p.PlayerStats)
-                .FirstOrDefaultAsync(p => p.Id == playerDto.Id);
-
-            var existingHero = await _context.Heroes.FirstOrDefaultAsync(p => p.Id == playerDto.PlayerStats.HeroPlayedId);
-
-            if (existingHero is null)
-            {
-                return BadRequest($"Hero with ID {playerDto.PlayerStats.HeroPlayedId} not found in RadiantTeam.");
-            }
-
-            if (existingPlayer != null && existingHero != null)
-            {
-                // Append new PlayerStats to the existing player
-                existingPlayer.PlayerStats.Add(new PlayerStats
-                {
-                    GameId = newGame.Id,
-                    TeamId = newGame.RadiantTeam.Id,
-                    HeroPlayedId = existingHero.Id,
-                    Kills = playerDto.PlayerStats.Kills,
-                    Deaths = playerDto.PlayerStats.Deaths,
-                    Assists = playerDto.PlayerStats.Assists
-                });
-                UpdatePlayerGameStats(existingPlayer.PlayerDetails, newGame.WinningTeam == createGameDto.RadiantTeam.Name);
-                newGame.RadiantTeam.Players.Add(existingPlayer);
-
-                var playerGame = new PlayerGame
-                {
-                    PlayerId = existingPlayer.Id,
-                    GameId = newGame.Id,
-                };
-
-                newGame.PlayerGames.Add(playerGame);
-            }
-            else
-            {
-                return BadRequest($"Player with ID {playerDto.Id} not found in RadiantTeam.");
-            }
+            return BadRequest(ex.Message);
         }
-
-        // Process DireTeam players
-        foreach (var playerDto in createGameDto.DireTeam.Players)
+        catch (Exception ex)
         {
-            var existingPlayer = await _context.Players
-                .Include(p => p.PlayerDetails)
-                .Include(p => p.PlayerStats)
-                .FirstOrDefaultAsync(p => p.Id == playerDto.Id);
-            var existingHero = await _context.Heroes.FirstOrDefaultAsync(p => p.Id == playerDto.PlayerStats.HeroPlayedId);
-
-            if (existingHero is null)
-            {
-                return BadRequest($"Hero with ID {playerDto.PlayerStats.HeroPlayedId} not found in Dire Team.");
-            }
-            if (existingPlayer != null)
-            {
-                // Append new PlayerStats to the existing player
-                existingPlayer.PlayerStats.Add(new PlayerStats
-                {
-                    GameId = newGame.Id,
-                    TeamId = newGame.DireTeam.Id,
-                    HeroPlayedId = existingHero.Id,
-                    Kills = playerDto.PlayerStats.Kills,
-                    Deaths = playerDto.PlayerStats.Deaths,
-                    Assists = playerDto.PlayerStats.Assists
-                });
-                UpdatePlayerGameStats(existingPlayer.PlayerDetails, newGame.WinningTeam == createGameDto.DireTeam.Name);
-                newGame.DireTeam.Players.Add(existingPlayer);
-
-                var playerGame = new PlayerGame
-                {
-                    PlayerId = existingPlayer.Id,
-                    GameId = newGame.Id,
-                };
-
-                newGame.PlayerGames.Add(playerGame);
-            }
-            else
-            {
-                return BadRequest($"Player with ID {playerDto.Id} not found in DireTeam.");
-            }
+            return StatusCode(500, $"An error occurred while creating the game. {ex}");
         }
-
-        await _context.SaveChangesAsync();
-
-        // Return a success response
-        return Ok(new { Message = "Game created successfully", GameId = Guid.NewGuid() });
-    }
-
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteGameAsync(Guid id)
-    {
-        var game = await _context.Games.FirstOrDefaultAsync(g => g.Id == id);
-        if (game == null)
-        {
-            return NotFound($"No game found in the database with id: {id}");
-        }
-
-        // First, delete all player stats related to this game
-        var relatedStats = await _context.PlayerStats.Where(ps => ps.GameId == id).ToListAsync();
-        _context.PlayerStats.RemoveRange(relatedStats);
-
-        _context.Games.Remove(game);
-        await _context.SaveChangesAsync();
-        return NoContent();
-    }
-
-    private void UpdatePlayerGameStats(PlayerDetails playerDetails, bool gameWon)
-    {
-        playerDetails.TotalGames++;
-        if (gameWon)
-        {
-            playerDetails.GamesWon++;
-        }
-        else if (!gameWon)
-        {
-            playerDetails.GamesLost++;
-        }
-        playerDetails.Winrate = Math.Round((double)playerDetails.GamesWon / playerDetails.TotalGames * 100);
     }
 }
 
