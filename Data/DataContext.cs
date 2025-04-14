@@ -1,6 +1,6 @@
 ﻿using DotaNerf.Configuration;
 using DotaNerf.Data.SeededData;
-using DotaNerf.Models;
+using DotaNerf.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotaNerf.Data;

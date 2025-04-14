@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DotaNerf.DTOs;
-using DotaNerf.Models;
+using DotaNerf.Entities;
 
 namespace DotaNerf;
 

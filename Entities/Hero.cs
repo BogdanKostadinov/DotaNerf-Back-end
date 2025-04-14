@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DotaNerf.Models;
+namespace DotaNerf.Entities;
 
 public class Hero
 {
