@@ -11,16 +11,16 @@ public class GameConfiguration : IEntityTypeConfiguration<Game>
         builder.HasKey(m => m.Id);
 
         builder.Property(g => g.WinningTeam)
-               .IsRequired();
+            .IsRequired();
 
         builder.HasOne(g => g.RadiantTeam)
-               .WithMany(t => t.GamesAsRadiant)
-               .HasForeignKey(g => g.RadiantTeamId)
-               .OnDelete(DeleteBehavior.Restrict);
+            .WithOne()
+            .HasForeignKey<Game>(g => g.RadiantTeamId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(g => g.DireTeam)
-               .WithMany(t => t.GamesAsDire)
-               .HasForeignKey(g => g.DireTeamId)
-               .OnDelete(DeleteBehavior.Restrict);
+            .WithOne()
+            .HasForeignKey<Game>(g => g.DireTeamId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

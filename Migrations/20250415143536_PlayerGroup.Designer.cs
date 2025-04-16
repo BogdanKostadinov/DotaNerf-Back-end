@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DotaNerf.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250409230949_Initial")]
-    partial class Initial
+    [Migration("20250415143536_PlayerGroup")]
+    partial class PlayerGroup
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace DotaNerf.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DotaNerf.Models.Game", b =>
+            modelBuilder.Entity("DotaNerf.Entities.Game", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,14 +45,16 @@ namespace DotaNerf.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DireTeamId");
+                    b.HasIndex("DireTeamId")
+                        .IsUnique();
 
-                    b.HasIndex("RadiantTeamId");
+                    b.HasIndex("RadiantTeamId")
+                        .IsUnique();
 
                     b.ToTable("Games");
                 });
 
-            modelBuilder.Entity("DotaNerf.Models.Hero", b =>
+            modelBuilder.Entity("DotaNerf.Entities.Hero", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -676,7 +678,7 @@ namespace DotaNerf.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DotaNerf.Models.Player", b =>
+            modelBuilder.Entity("DotaNerf.Entities.Player", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -696,109 +698,205 @@ namespace DotaNerf.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a1e29d5e-1c4b-4b8a-9b1e-1c4b4b8a9b1e"),
-                            Name = "dummy",
-                            PlayerDetailsId = new Guid("d5f49d5e-4f4b-4c8a-9e4e-4f4b7c8a9e4e")
-                        },
-                        new
-                        {
-                            Id = new Guid("c3f39d5e-3e4b-4c8a-9d3e-3e4b6c8a9d3e"),
+                            Id = new Guid("0de33ebf-6f2d-4f37-a41f-c92a8387a16f"),
                             Name = "Veni",
-                            PlayerDetailsId = new Guid("e6f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e")
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000002")
                         },
                         new
                         {
-                            Id = new Guid("d4f49d5e-4f4b-4c8a-9e4e-4f4b7c8a9e4e"),
-                            Name = "Kriskata",
-                            PlayerDetailsId = new Guid("d4f49d5e-5f4b-4c8a-9e4e-5f4b7c8a9e4e")
+                            Id = new Guid("158f0cd7-315a-4d60-8a4a-3537766b2958"),
+                            Name = "Retar Dio ( kolega )",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000003")
                         },
                         new
                         {
-                            Id = new Guid("e5f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
-                            Name = "Marto",
-                            PlayerDetailsId = new Guid("e5f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e")
-                        },
-                        new
-                        {
-                            Id = new Guid("f6f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"),
+                            Id = new Guid("2637179a-65b0-4af7-b7b2-0dc0b044a9c6"),
                             Name = "Steli",
-                            PlayerDetailsId = new Guid("f6f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e")
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000004")
                         },
                         new
                         {
-                            Id = new Guid("07f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"),
-                            Name = "Rumen",
-                            PlayerDetailsId = new Guid("07f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e")
+                            Id = new Guid("2f08b795-c2ee-460f-9102-489dcb034a59"),
+                            Name = "Kriskata",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000005")
                         },
                         new
                         {
-                            Id = new Guid("18f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"),
-                            Name = "Bobur Kurva",
-                            PlayerDetailsId = new Guid("18f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e")
+                            Id = new Guid("2f25fdca-7016-4c2b-904e-154813b60210"),
+                            Name = "DJ misho",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000006")
                         },
                         new
                         {
-                            Id = new Guid("29f99d5e-9f4b-4c8a-9f9e-9f4b2c8a9f9e"),
-                            Name = "Dj Misho",
-                            PlayerDetailsId = new Guid("29f99d5e-9f4b-4c8a-9f9e-9f4b2c8a9f9e")
+                            Id = new Guid("2f3ab1f0-f334-4239-8793-87d92239d5bb"),
+                            Name = "Stoqn (kolega )",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000007")
                         },
                         new
                         {
-                            Id = new Guid("30f09d5e-0f4b-4c8a-9f0e-0f4b3c8a9f0e"),
+                            Id = new Guid("32830ea1-39ad-469c-96bd-3040f2d49f6a"),
                             Name = "Kuncho",
-                            PlayerDetailsId = new Guid("30f09d5e-0f4b-4c8a-9f0e-0f4b3c8a9f0e")
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000008")
                         },
                         new
                         {
-                            Id = new Guid("41f19d5e-1f4b-4c8a-9f1e-1f4b4c8a9f1e"),
-                            Name = "Sofiqneca",
-                            PlayerDetailsId = new Guid("41f19d5e-1f4b-4c8a-9f1e-1f4b4c8a9f1e")
+                            Id = new Guid("35b0e246-4545-4079-b258-8ba67ac756fa"),
+                            Name = "Sofianeca",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000009")
                         },
                         new
                         {
-                            Id = new Guid("52f29d5e-2f4b-4c8a-9f2e-2f4b5c8a9f2e"),
+                            Id = new Guid("013986ba-03a2-4e5f-a54e-1e1a677c5593"),
+                            Name = "Marto",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000001")
+                        },
+                        new
+                        {
+                            Id = new Guid("3d6a9560-592d-49e5-bfe6-29d2fe589d42"),
+                            Name = "Rumen",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000010")
+                        },
+                        new
+                        {
+                            Id = new Guid("3e85b928-0684-4300-9a23-c4d3c64ab59f"),
+                            Name = "Bobur Kurva",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000011")
+                        },
+                        new
+                        {
+                            Id = new Guid("40270ce1-9235-4720-9097-b26fcd7ebdc3"),
                             Name = "Vaneto",
-                            PlayerDetailsId = new Guid("52f29d5e-2f4b-4c8a-9f2e-2f4b5c8a9f2e")
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000012")
                         },
                         new
                         {
-                            Id = new Guid("63f39d5e-3f4b-4c8a-9f3e-3f4b6c8a9f3e"),
+                            Id = new Guid("45193089-0738-40c2-951b-ec481ca21786"),
                             Name = "Mario",
-                            PlayerDetailsId = new Guid("63f39d5e-3f4b-4c8a-9f3e-3f4b6c8a9f3e")
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000013")
                         },
                         new
                         {
-                            Id = new Guid("74f49d5e-4f4b-4c8a-9f4e-4f4b7c8a9f4e"),
-                            Name = "Retar Dio (Roskata)",
-                            PlayerDetailsId = new Guid("74f49d5e-4f4b-4c8a-9f4e-4f4b7c8a9f4e")
-                        },
-                        new
-                        {
-                            Id = new Guid("85f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
+                            Id = new Guid("4f1f9cac-418b-4356-94c6-144eac70c0a9"),
                             Name = "Panic",
-                            PlayerDetailsId = new Guid("85f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e")
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000014")
                         },
                         new
                         {
-                            Id = new Guid("96f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"),
+                            Id = new Guid("5514f903-232a-4866-9e0b-4740b56de8fc"),
                             Name = "The Joker",
-                            PlayerDetailsId = new Guid("96f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e")
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000015")
                         },
                         new
                         {
-                            Id = new Guid("a7f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"),
+                            Id = new Guid("6119f1a3-884c-4f22-9fa4-401e55917378"),
+                            Name = "Danithedog",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000016")
+                        },
+                        new
+                        {
+                            Id = new Guid("617747ee-a832-47be-aa30-c99310456113"),
+                            Name = "Nevermore",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000017")
+                        },
+                        new
+                        {
+                            Id = new Guid("632691d7-db1b-4fb5-9e83-893250e14474"),
+                            Name = "Mode : topuria",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000018")
+                        },
+                        new
+                        {
+                            Id = new Guid("71e4bb90-31dd-4cf7-9628-9eb8462e8a03"),
+                            Name = "Zloto kuche",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000019")
+                        },
+                        new
+                        {
+                            Id = new Guid("75c32438-809f-4f31-9ae3-d79ad2b56c29"),
                             Name = "Baba Yaga",
-                            PlayerDetailsId = new Guid("a7f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e")
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000020")
                         },
                         new
                         {
-                            Id = new Guid("b8f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"),
-                            Name = "Danitthedog",
-                            PlayerDetailsId = new Guid("b8f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e")
+                            Id = new Guid("8441c8de-e7e7-4faa-9869-99e95fa0791b"),
+                            Name = "Smurf",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000021")
+                        },
+                        new
+                        {
+                            Id = new Guid("90eae6b2-6395-49a8-9bfa-df51eac66c90"),
+                            Name = "Peacelock",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000022")
+                        },
+                        new
+                        {
+                            Id = new Guid("a7af794d-dbdc-4a05-a4f4-ebbb1ef0a0fb"),
+                            Name = "Vee",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000023")
+                        },
+                        new
+                        {
+                            Id = new Guid("a807403e-9e93-4a3b-9a4b-6eb9a6406687"),
+                            Name = "RMZ",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000024")
+                        },
+                        new
+                        {
+                            Id = new Guid("c3219456-5c5d-4d18-9980-032627844744"),
+                            Name = "teperkules",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000025")
+                        },
+                        new
+                        {
+                            Id = new Guid("cce185ad-c8d0-48ba-ad96-2ed4508b7dad"),
+                            Name = "Vetirinari",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000026")
+                        },
+                        new
+                        {
+                            Id = new Guid("d226779e-6c47-46a2-96cf-89f6c7502018"),
+                            Name = "Borat BG",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000027")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5d3d965-f59c-46ce-8bb4-929cc261491a"),
+                            Name = "Pro 1",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000028")
+                        },
+                        new
+                        {
+                            Id = new Guid("d68b00ec-3ee2-4069-aa06-c74dce1946ce"),
+                            Name = "Fisheye",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000029")
+                        },
+                        new
+                        {
+                            Id = new Guid("e7cc43a2-1eb1-4df4-837a-e264d386a235"),
+                            Name = "Batko bie sladko prime",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000030")
+                        },
+                        new
+                        {
+                            Id = new Guid("eb3228bc-8b90-41b5-8a5a-e9faaf5e9048"),
+                            Name = "pitbgr",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000031")
+                        },
+                        new
+                        {
+                            Id = new Guid("f5071dec-ea3e-4106-8d52-bb3f59fdb3aa"),
+                            Name = "Svetorontotokyo",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000032")
+                        },
+                        new
+                        {
+                            Id = new Guid("f6f06957-a84d-4071-87d0-4b08e29888c5"),
+                            Name = "Rei",
+                            PlayerDetailsId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000033")
                         });
                 });
 
-            modelBuilder.Entity("DotaNerf.Models.PlayerDetails", b =>
+            modelBuilder.Entity("DotaNerf.Entities.PlayerDetails", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -813,6 +911,9 @@ namespace DotaNerf.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValue(0);
+
+                    b.Property<int>("PlayerGroup")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("PlayerId")
                         .HasColumnType("uniqueidentifier");
@@ -835,160 +936,337 @@ namespace DotaNerf.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d5f49d5e-4f4b-4c8a-9e4e-4f4b7c8a9e4e"),
-                            GamesLost = 6,
-                            GamesWon = 9,
-                            PlayerId = new Guid("a1e29d5e-1c4b-4b8a-9b1e-1c4b4b8a9b1e"),
-                            TotalGames = 15,
-                            Winrate = 60.0
-                        },
-                        new
-                        {
-                            Id = new Guid("e6f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
-                            GamesLost = 7,
-                            GamesWon = 10,
-                            PlayerId = new Guid("c3f39d5e-3e4b-4c8a-9d3e-3e4b6c8a9d3e"),
-                            TotalGames = 17,
-                            Winrate = 59.0
-                        },
-                        new
-                        {
-                            Id = new Guid("d4f49d5e-5f4b-4c8a-9e4e-5f4b7c8a9e4e"),
-                            GamesLost = 6,
-                            GamesWon = 9,
-                            PlayerId = new Guid("d4f49d5e-4f4b-4c8a-9e4e-4f4b7c8a9e4e"),
-                            TotalGames = 15,
-                            Winrate = 60.0
-                        },
-                        new
-                        {
-                            Id = new Guid("e5f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
-                            GamesLost = 7,
-                            GamesWon = 10,
-                            PlayerId = new Guid("e5f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
-                            TotalGames = 17,
-                            Winrate = 59.0
-                        },
-                        new
-                        {
-                            Id = new Guid("f6f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"),
-                            GamesLost = 7,
-                            GamesWon = 7,
-                            PlayerId = new Guid("f6f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"),
-                            TotalGames = 14,
-                            Winrate = 50.0
-                        },
-                        new
-                        {
-                            Id = new Guid("07f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"),
-                            GamesLost = 9,
-                            GamesWon = 10,
-                            PlayerId = new Guid("07f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"),
-                            TotalGames = 19,
-                            Winrate = 52.0
-                        },
-                        new
-                        {
-                            Id = new Guid("18f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"),
-                            GamesLost = 9,
-                            GamesWon = 6,
-                            PlayerId = new Guid("18f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"),
-                            TotalGames = 15,
-                            Winrate = 40.0
-                        },
-                        new
-                        {
-                            Id = new Guid("29f99d5e-9f4b-4c8a-9f9e-9f4b2c8a9f9e"),
-                            GamesLost = 10,
-                            GamesWon = 6,
-                            PlayerId = new Guid("29f99d5e-9f4b-4c8a-9f9e-9f4b2c8a9f9e"),
-                            TotalGames = 16,
-                            Winrate = 38.0
-                        },
-                        new
-                        {
-                            Id = new Guid("30f09d5e-0f4b-4c8a-9f0e-0f4b3c8a9f0e"),
-                            GamesLost = 12,
-                            GamesWon = 7,
-                            PlayerId = new Guid("30f09d5e-0f4b-4c8a-9f0e-0f4b3c8a9f0e"),
-                            TotalGames = 19,
-                            Winrate = 37.0
-                        },
-                        new
-                        {
-                            Id = new Guid("41f19d5e-1f4b-4c8a-9f1e-1f4b4c8a9f1e"),
-                            GamesLost = 4,
-                            GamesWon = 1,
-                            PlayerId = new Guid("41f19d5e-1f4b-4c8a-9f1e-1f4b4c8a9f1e"),
-                            TotalGames = 5,
-                            Winrate = 20.0
-                        },
-                        new
-                        {
-                            Id = new Guid("52f29d5e-2f4b-4c8a-9f2e-2f4b5c8a9f2e"),
-                            GamesLost = 6,
-                            GamesWon = 2,
-                            PlayerId = new Guid("52f29d5e-2f4b-4c8a-9f2e-2f4b5c8a9f2e"),
-                            TotalGames = 8,
-                            Winrate = 25.0
-                        },
-                        new
-                        {
-                            Id = new Guid("63f39d5e-3f4b-4c8a-9f3e-3f4b6c8a9f3e"),
-                            GamesLost = 6,
-                            GamesWon = 0,
-                            PlayerId = new Guid("63f39d5e-3f4b-4c8a-9f3e-3f4b6c8a9f3e"),
-                            TotalGames = 6,
-                            Winrate = 0.0
-                        },
-                        new
-                        {
-                            Id = new Guid("74f49d5e-4f4b-4c8a-9f4e-4f4b7c8a9f4e"),
-                            GamesLost = 3,
-                            GamesWon = 5,
-                            PlayerId = new Guid("74f49d5e-4f4b-4c8a-9f4e-4f4b7c8a9f4e"),
-                            TotalGames = 8,
-                            Winrate = 62.0
-                        },
-                        new
-                        {
-                            Id = new Guid("85f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000001"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerId = new Guid("85f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
+                            PlayerGroup = 0,
+                            PlayerId = new Guid("013986ba-03a2-4e5f-a54e-1e1a677c5593"),
                             TotalGames = 0,
                             Winrate = 0.0
                         },
                         new
                         {
-                            Id = new Guid("96f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"),
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000002"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerId = new Guid("96f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"),
+                            PlayerGroup = 0,
+                            PlayerId = new Guid("0de33ebf-6f2d-4f37-a41f-c92a8387a16f"),
                             TotalGames = 0,
                             Winrate = 0.0
                         },
                         new
                         {
-                            Id = new Guid("a7f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"),
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000003"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerId = new Guid("a7f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"),
+                            PlayerGroup = 1,
+                            PlayerId = new Guid("158f0cd7-315a-4d60-8a4a-3537766b2958"),
                             TotalGames = 0,
                             Winrate = 0.0
                         },
                         new
                         {
-                            Id = new Guid("b8f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"),
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000004"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerId = new Guid("b8f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"),
+                            PlayerGroup = 1,
+                            PlayerId = new Guid("2637179a-65b0-4af7-b7b2-0dc0b044a9c6"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000005"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 0,
+                            PlayerId = new Guid("2f08b795-c2ee-460f-9102-489dcb034a59"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000006"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 0,
+                            PlayerId = new Guid("2f25fdca-7016-4c2b-904e-154813b60210"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000007"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 1,
+                            PlayerId = new Guid("2f3ab1f0-f334-4239-8793-87d92239d5bb"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000008"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 0,
+                            PlayerId = new Guid("32830ea1-39ad-469c-96bd-3040f2d49f6a"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000009"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 0,
+                            PlayerId = new Guid("35b0e246-4545-4079-b258-8ba67ac756fa"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000010"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 0,
+                            PlayerId = new Guid("3d6a9560-592d-49e5-bfe6-29d2fe589d42"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000011"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 1,
+                            PlayerId = new Guid("3e85b928-0684-4300-9a23-c4d3c64ab59f"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000012"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 0,
+                            PlayerId = new Guid("40270ce1-9235-4720-9097-b26fcd7ebdc3"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000013"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 0,
+                            PlayerId = new Guid("45193089-0738-40c2-951b-ec481ca21786"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000014"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 1,
+                            PlayerId = new Guid("4f1f9cac-418b-4356-94c6-144eac70c0a9"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000015"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 1,
+                            PlayerId = new Guid("5514f903-232a-4866-9e0b-4740b56de8fc"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000016"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 1,
+                            PlayerId = new Guid("6119f1a3-884c-4f22-9fa4-401e55917378"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000017"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 2,
+                            PlayerId = new Guid("617747ee-a832-47be-aa30-c99310456113"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000018"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 2,
+                            PlayerId = new Guid("632691d7-db1b-4fb5-9e83-893250e14474"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000019"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 2,
+                            PlayerId = new Guid("71e4bb90-31dd-4cf7-9628-9eb8462e8a03"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000020"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 1,
+                            PlayerId = new Guid("75c32438-809f-4f31-9ae3-d79ad2b56c29"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000021"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 2,
+                            PlayerId = new Guid("8441c8de-e7e7-4faa-9869-99e95fa0791b"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000022"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 2,
+                            PlayerId = new Guid("90eae6b2-6395-49a8-9bfa-df51eac66c90"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000023"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 2,
+                            PlayerId = new Guid("a7af794d-dbdc-4a05-a4f4-ebbb1ef0a0fb"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000024"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 2,
+                            PlayerId = new Guid("a807403e-9e93-4a3b-9a4b-6eb9a6406687"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000025"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 2,
+                            PlayerId = new Guid("c3219456-5c5d-4d18-9980-032627844744"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000026"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 1,
+                            PlayerId = new Guid("cce185ad-c8d0-48ba-ad96-2ed4508b7dad"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000027"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 1,
+                            PlayerId = new Guid("d226779e-6c47-46a2-96cf-89f6c7502018"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000028"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 2,
+                            PlayerId = new Guid("d5d3d965-f59c-46ce-8bb4-929cc261491a"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000029"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 2,
+                            PlayerId = new Guid("d68b00ec-3ee2-4069-aa06-c74dce1946ce"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000030"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 2,
+                            PlayerId = new Guid("e7cc43a2-1eb1-4df4-837a-e264d386a235"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000031"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 2,
+                            PlayerId = new Guid("eb3228bc-8b90-41b5-8a5a-e9faaf5e9048"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000032"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 2,
+                            PlayerId = new Guid("f5071dec-ea3e-4106-8d52-bb3f59fdb3aa"),
+                            TotalGames = 0,
+                            Winrate = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000033"),
+                            GamesLost = 0,
+                            GamesWon = 0,
+                            PlayerGroup = 2,
+                            PlayerId = new Guid("f6f06957-a84d-4071-87d0-4b08e29888c5"),
                             TotalGames = 0,
                             Winrate = 0.0
                         });
                 });
 
-            modelBuilder.Entity("DotaNerf.Models.PlayerGame", b =>
+            modelBuilder.Entity("DotaNerf.Entities.PlayerGame", b =>
                 {
                     b.Property<Guid>("GameId")
                         .HasColumnType("uniqueidentifier");
@@ -1003,7 +1281,7 @@ namespace DotaNerf.Migrations
                     b.ToTable("PlayerGames");
                 });
 
-            modelBuilder.Entity("DotaNerf.Models.PlayerStats", b =>
+            modelBuilder.Entity("DotaNerf.Entities.PlayerStats", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -1049,16 +1327,21 @@ namespace DotaNerf.Migrations
                     b.ToTable("PlayerStats");
                 });
 
-            modelBuilder.Entity("DotaNerf.Models.Team", b =>
+            modelBuilder.Entity("DotaNerf.Entities.Team", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("GameId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Name")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GameId");
 
                     b.ToTable("Teams");
                 });
@@ -1078,17 +1361,17 @@ namespace DotaNerf.Migrations
                     b.ToTable("PlayerTeams", (string)null);
                 });
 
-            modelBuilder.Entity("DotaNerf.Models.Game", b =>
+            modelBuilder.Entity("DotaNerf.Entities.Game", b =>
                 {
-                    b.HasOne("DotaNerf.Models.Team", "DireTeam")
-                        .WithMany("GamesAsDire")
-                        .HasForeignKey("DireTeamId")
+                    b.HasOne("DotaNerf.Entities.Team", "DireTeam")
+                        .WithOne()
+                        .HasForeignKey("DotaNerf.Entities.Game", "DireTeamId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("DotaNerf.Models.Team", "RadiantTeam")
-                        .WithMany("GamesAsRadiant")
-                        .HasForeignKey("RadiantTeamId")
+                    b.HasOne("DotaNerf.Entities.Team", "RadiantTeam")
+                        .WithOne()
+                        .HasForeignKey("DotaNerf.Entities.Game", "RadiantTeamId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -1097,26 +1380,26 @@ namespace DotaNerf.Migrations
                     b.Navigation("RadiantTeam");
                 });
 
-            modelBuilder.Entity("DotaNerf.Models.PlayerDetails", b =>
+            modelBuilder.Entity("DotaNerf.Entities.PlayerDetails", b =>
                 {
-                    b.HasOne("DotaNerf.Models.Player", "Player")
+                    b.HasOne("DotaNerf.Entities.Player", "Player")
                         .WithOne("PlayerDetails")
-                        .HasForeignKey("DotaNerf.Models.PlayerDetails", "PlayerId")
+                        .HasForeignKey("DotaNerf.Entities.PlayerDetails", "PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("DotaNerf.Models.PlayerGame", b =>
+            modelBuilder.Entity("DotaNerf.Entities.PlayerGame", b =>
                 {
-                    b.HasOne("DotaNerf.Models.Game", "Game")
+                    b.HasOne("DotaNerf.Entities.Game", "Game")
                         .WithMany("PlayerGames")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DotaNerf.Models.Player", "Player")
+                    b.HasOne("DotaNerf.Entities.Player", "Player")
                         .WithMany("PlayerGames")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1127,27 +1410,27 @@ namespace DotaNerf.Migrations
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("DotaNerf.Models.PlayerStats", b =>
+            modelBuilder.Entity("DotaNerf.Entities.PlayerStats", b =>
                 {
-                    b.HasOne("DotaNerf.Models.Game", "Game")
+                    b.HasOne("DotaNerf.Entities.Game", "Game")
                         .WithMany()
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DotaNerf.Models.Hero", "HeroPlayed")
+                    b.HasOne("DotaNerf.Entities.Hero", "HeroPlayed")
                         .WithMany()
                         .HasForeignKey("HeroPlayedId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DotaNerf.Models.Player", "Player")
+                    b.HasOne("DotaNerf.Entities.Player", "Player")
                         .WithMany("PlayerStats")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DotaNerf.Models.Team", "Team")
+                    b.HasOne("DotaNerf.Entities.Team", "Team")
                         .WithMany()
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1162,27 +1445,36 @@ namespace DotaNerf.Migrations
                     b.Navigation("Team");
                 });
 
+            modelBuilder.Entity("DotaNerf.Entities.Team", b =>
+                {
+                    b.HasOne("DotaNerf.Entities.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameId");
+
+                    b.Navigation("Game");
+                });
+
             modelBuilder.Entity("PlayerTeam", b =>
                 {
-                    b.HasOne("DotaNerf.Models.Player", null)
+                    b.HasOne("DotaNerf.Entities.Player", null)
                         .WithMany()
                         .HasForeignKey("PlayersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DotaNerf.Models.Team", null)
+                    b.HasOne("DotaNerf.Entities.Team", null)
                         .WithMany()
                         .HasForeignKey("TeamsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DotaNerf.Models.Game", b =>
+            modelBuilder.Entity("DotaNerf.Entities.Game", b =>
                 {
                     b.Navigation("PlayerGames");
                 });
 
-            modelBuilder.Entity("DotaNerf.Models.Player", b =>
+            modelBuilder.Entity("DotaNerf.Entities.Player", b =>
                 {
                     b.Navigation("PlayerDetails")
                         .IsRequired();
@@ -1190,13 +1482,6 @@ namespace DotaNerf.Migrations
                     b.Navigation("PlayerGames");
 
                     b.Navigation("PlayerStats");
-                });
-
-            modelBuilder.Entity("DotaNerf.Models.Team", b =>
-                {
-                    b.Navigation("GamesAsDire");
-
-                    b.Navigation("GamesAsRadiant");
                 });
 #pragma warning restore 612, 618
         }

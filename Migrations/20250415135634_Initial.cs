@@ -40,18 +40,6 @@ namespace DotaNerf.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Teams",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teams", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PlayerDetails",
                 columns: table => new
                 {
@@ -86,42 +74,6 @@ namespace DotaNerf.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Games", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Games_Teams_DireTeamId",
-                        column: x => x.DireTeamId,
-                        principalTable: "Teams",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Games_Teams_RadiantTeamId",
-                        column: x => x.RadiantTeamId,
-                        principalTable: "Teams",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PlayerTeams",
-                columns: table => new
-                {
-                    PlayersId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TeamsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlayerTeams", x => new { x.PlayersId, x.TeamsId });
-                    table.ForeignKey(
-                        name: "FK_PlayerTeams_Players_PlayersId",
-                        column: x => x.PlayersId,
-                        principalTable: "Players",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PlayerTeams_Teams_TeamsId",
-                        column: x => x.TeamsId,
-                        principalTable: "Teams",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -146,6 +98,24 @@ namespace DotaNerf.Migrations
                         principalTable: "Players",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Teams",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<int>(type: "int", nullable: false),
+                    GameId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teams", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Teams_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -185,6 +155,30 @@ namespace DotaNerf.Migrations
                     table.ForeignKey(
                         name: "FK_PlayerStats_Teams_TeamId",
                         column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlayerTeams",
+                columns: table => new
+                {
+                    PlayersId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeamsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlayerTeams", x => new { x.PlayersId, x.TeamsId });
+                    table.ForeignKey(
+                        name: "FK_PlayerTeams_Players_PlayersId",
+                        column: x => x.PlayersId,
+                        principalTable: "Players",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PlayerTeams_Teams_TeamsId",
+                        column: x => x.TeamsId,
                         principalTable: "Teams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -323,80 +317,92 @@ namespace DotaNerf.Migrations
                 columns: new[] { "Id", "Name", "PlayerDetailsId" },
                 values: new object[,]
                 {
-                    { new Guid("07f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"), "Rumen", new Guid("07f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e") },
-                    { new Guid("18f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"), "Bobur Kurva", new Guid("18f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e") },
-                    { new Guid("29f99d5e-9f4b-4c8a-9f9e-9f4b2c8a9f9e"), "Dj Misho", new Guid("29f99d5e-9f4b-4c8a-9f9e-9f4b2c8a9f9e") },
-                    { new Guid("30f09d5e-0f4b-4c8a-9f0e-0f4b3c8a9f0e"), "Kuncho", new Guid("30f09d5e-0f4b-4c8a-9f0e-0f4b3c8a9f0e") },
-                    { new Guid("41f19d5e-1f4b-4c8a-9f1e-1f4b4c8a9f1e"), "Sofiqneca", new Guid("41f19d5e-1f4b-4c8a-9f1e-1f4b4c8a9f1e") },
-                    { new Guid("52f29d5e-2f4b-4c8a-9f2e-2f4b5c8a9f2e"), "Vaneto", new Guid("52f29d5e-2f4b-4c8a-9f2e-2f4b5c8a9f2e") },
-                    { new Guid("63f39d5e-3f4b-4c8a-9f3e-3f4b6c8a9f3e"), "Mario", new Guid("63f39d5e-3f4b-4c8a-9f3e-3f4b6c8a9f3e") },
-                    { new Guid("74f49d5e-4f4b-4c8a-9f4e-4f4b7c8a9f4e"), "Retar Dio (Roskata)", new Guid("74f49d5e-4f4b-4c8a-9f4e-4f4b7c8a9f4e") },
-                    { new Guid("85f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"), "Panic", new Guid("85f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e") },
-                    { new Guid("96f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"), "The Joker", new Guid("96f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e") },
-                    { new Guid("a1e29d5e-1c4b-4b8a-9b1e-1c4b4b8a9b1e"), "dummy", new Guid("d5f49d5e-4f4b-4c8a-9e4e-4f4b7c8a9e4e") },
-                    { new Guid("a7f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"), "Baba Yaga", new Guid("a7f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e") },
-                    { new Guid("b8f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"), "Danitthedog", new Guid("b8f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e") },
-                    { new Guid("c3f39d5e-3e4b-4c8a-9d3e-3e4b6c8a9d3e"), "Veni", new Guid("e6f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e") },
-                    { new Guid("d4f49d5e-4f4b-4c8a-9e4e-4f4b7c8a9e4e"), "Kriskata", new Guid("d4f49d5e-5f4b-4c8a-9e4e-5f4b7c8a9e4e") },
-                    { new Guid("e5f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"), "Marto", new Guid("e5f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e") },
-                    { new Guid("f6f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"), "Steli", new Guid("f6f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e") }
+                    { new Guid("013986ba-03a2-4e5f-a54e-1e1a677c5593"), "Marto", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000001") },
+                    { new Guid("0de33ebf-6f2d-4f37-a41f-c92a8387a16f"), "Veni", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000002") },
+                    { new Guid("158f0cd7-315a-4d60-8a4a-3537766b2958"), "Retar Dio ( kolega )", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000003") },
+                    { new Guid("2637179a-65b0-4af7-b7b2-0dc0b044a9c6"), "Steli", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000004") },
+                    { new Guid("2f08b795-c2ee-460f-9102-489dcb034a59"), "Kriskata", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000005") },
+                    { new Guid("2f25fdca-7016-4c2b-904e-154813b60210"), "DJ misho", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000006") },
+                    { new Guid("2f3ab1f0-f334-4239-8793-87d92239d5bb"), "Stoqn (kolega )", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000007") },
+                    { new Guid("32830ea1-39ad-469c-96bd-3040f2d49f6a"), "Kuncho", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000008") },
+                    { new Guid("35b0e246-4545-4079-b258-8ba67ac756fa"), "Sofianeca", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000009") },
+                    { new Guid("3d6a9560-592d-49e5-bfe6-29d2fe589d42"), "Rumen", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000010") },
+                    { new Guid("3e85b928-0684-4300-9a23-c4d3c64ab59f"), "Bobur Kurva", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000011") },
+                    { new Guid("40270ce1-9235-4720-9097-b26fcd7ebdc3"), "Vaneto", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000012") },
+                    { new Guid("45193089-0738-40c2-951b-ec481ca21786"), "Mario", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000013") },
+                    { new Guid("4f1f9cac-418b-4356-94c6-144eac70c0a9"), "Panic", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000014") },
+                    { new Guid("5514f903-232a-4866-9e0b-4740b56de8fc"), "The Joker", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000015") },
+                    { new Guid("6119f1a3-884c-4f22-9fa4-401e55917378"), "Danithedog", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000016") },
+                    { new Guid("617747ee-a832-47be-aa30-c99310456113"), "Nevermore", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000017") },
+                    { new Guid("632691d7-db1b-4fb5-9e83-893250e14474"), "Mode : topuria", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000018") },
+                    { new Guid("71e4bb90-31dd-4cf7-9628-9eb8462e8a03"), "Zloto kuche", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000019") },
+                    { new Guid("75c32438-809f-4f31-9ae3-d79ad2b56c29"), "Baba Yaga", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000020") },
+                    { new Guid("8441c8de-e7e7-4faa-9869-99e95fa0791b"), "Smurf", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000021") },
+                    { new Guid("90eae6b2-6395-49a8-9bfa-df51eac66c90"), "Peacelock", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000022") },
+                    { new Guid("a7af794d-dbdc-4a05-a4f4-ebbb1ef0a0fb"), "Vee", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000023") },
+                    { new Guid("a807403e-9e93-4a3b-9a4b-6eb9a6406687"), "RMZ", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000024") },
+                    { new Guid("c3219456-5c5d-4d18-9980-032627844744"), "teperkules", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000025") },
+                    { new Guid("cce185ad-c8d0-48ba-ad96-2ed4508b7dad"), "Vetirinari", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000026") },
+                    { new Guid("d226779e-6c47-46a2-96cf-89f6c7502018"), "Borat BG", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000027") },
+                    { new Guid("d5d3d965-f59c-46ce-8bb4-929cc261491a"), "Pro 1", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000028") },
+                    { new Guid("d68b00ec-3ee2-4069-aa06-c74dce1946ce"), "Fisheye", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000029") },
+                    { new Guid("e7cc43a2-1eb1-4df4-837a-e264d386a235"), "Batko bie sladko prime", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000030") },
+                    { new Guid("eb3228bc-8b90-41b5-8a5a-e9faaf5e9048"), "pitbgr", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000031") },
+                    { new Guid("f5071dec-ea3e-4106-8d52-bb3f59fdb3aa"), "Svetorontotokyo", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000032") },
+                    { new Guid("f6f06957-a84d-4071-87d0-4b08e29888c5"), "Rei", new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000033") }
                 });
-
-            migrationBuilder.InsertData(
-                table: "PlayerDetails",
-                columns: new[] { "Id", "GamesLost", "GamesWon", "PlayerId", "TotalGames", "Winrate" },
-                values: new object[,]
-                {
-                    { new Guid("07f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"), 9, 10, new Guid("07f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"), 19, 52.0 },
-                    { new Guid("18f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"), 9, 6, new Guid("18f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"), 15, 40.0 },
-                    { new Guid("29f99d5e-9f4b-4c8a-9f9e-9f4b2c8a9f9e"), 10, 6, new Guid("29f99d5e-9f4b-4c8a-9f9e-9f4b2c8a9f9e"), 16, 38.0 },
-                    { new Guid("30f09d5e-0f4b-4c8a-9f0e-0f4b3c8a9f0e"), 12, 7, new Guid("30f09d5e-0f4b-4c8a-9f0e-0f4b3c8a9f0e"), 19, 37.0 },
-                    { new Guid("41f19d5e-1f4b-4c8a-9f1e-1f4b4c8a9f1e"), 4, 1, new Guid("41f19d5e-1f4b-4c8a-9f1e-1f4b4c8a9f1e"), 5, 20.0 },
-                    { new Guid("52f29d5e-2f4b-4c8a-9f2e-2f4b5c8a9f2e"), 6, 2, new Guid("52f29d5e-2f4b-4c8a-9f2e-2f4b5c8a9f2e"), 8, 25.0 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "PlayerDetails",
-                columns: new[] { "Id", "GamesLost", "PlayerId", "TotalGames", "Winrate" },
-                values: new object[] { new Guid("63f39d5e-3f4b-4c8a-9f3e-3f4b6c8a9f3e"), 6, new Guid("63f39d5e-3f4b-4c8a-9f3e-3f4b6c8a9f3e"), 6, 0.0 });
-
-            migrationBuilder.InsertData(
-                table: "PlayerDetails",
-                columns: new[] { "Id", "GamesLost", "GamesWon", "PlayerId", "TotalGames", "Winrate" },
-                values: new object[] { new Guid("74f49d5e-4f4b-4c8a-9f4e-4f4b7c8a9f4e"), 3, 5, new Guid("74f49d5e-4f4b-4c8a-9f4e-4f4b7c8a9f4e"), 8, 62.0 });
 
             migrationBuilder.InsertData(
                 table: "PlayerDetails",
                 columns: new[] { "Id", "PlayerId", "Winrate" },
                 values: new object[,]
                 {
-                    { new Guid("85f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"), new Guid("85f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"), 0.0 },
-                    { new Guid("96f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"), new Guid("96f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"), 0.0 },
-                    { new Guid("a7f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"), new Guid("a7f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"), 0.0 },
-                    { new Guid("b8f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"), new Guid("b8f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"), 0.0 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "PlayerDetails",
-                columns: new[] { "Id", "GamesLost", "GamesWon", "PlayerId", "TotalGames", "Winrate" },
-                values: new object[,]
-                {
-                    { new Guid("d4f49d5e-5f4b-4c8a-9e4e-5f4b7c8a9e4e"), 6, 9, new Guid("d4f49d5e-4f4b-4c8a-9e4e-4f4b7c8a9e4e"), 15, 60.0 },
-                    { new Guid("d5f49d5e-4f4b-4c8a-9e4e-4f4b7c8a9e4e"), 6, 9, new Guid("a1e29d5e-1c4b-4b8a-9b1e-1c4b4b8a9b1e"), 15, 60.0 },
-                    { new Guid("e5f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"), 7, 10, new Guid("e5f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"), 17, 59.0 },
-                    { new Guid("e6f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"), 7, 10, new Guid("c3f39d5e-3e4b-4c8a-9d3e-3e4b6c8a9d3e"), 17, 59.0 },
-                    { new Guid("f6f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"), 7, 7, new Guid("f6f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"), 14, 50.0 }
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000001"), new Guid("013986ba-03a2-4e5f-a54e-1e1a677c5593"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000002"), new Guid("0de33ebf-6f2d-4f37-a41f-c92a8387a16f"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000003"), new Guid("158f0cd7-315a-4d60-8a4a-3537766b2958"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000004"), new Guid("2637179a-65b0-4af7-b7b2-0dc0b044a9c6"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000005"), new Guid("2f08b795-c2ee-460f-9102-489dcb034a59"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000006"), new Guid("2f25fdca-7016-4c2b-904e-154813b60210"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000007"), new Guid("2f3ab1f0-f334-4239-8793-87d92239d5bb"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000008"), new Guid("32830ea1-39ad-469c-96bd-3040f2d49f6a"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000009"), new Guid("35b0e246-4545-4079-b258-8ba67ac756fa"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000010"), new Guid("3d6a9560-592d-49e5-bfe6-29d2fe589d42"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000011"), new Guid("3e85b928-0684-4300-9a23-c4d3c64ab59f"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000012"), new Guid("40270ce1-9235-4720-9097-b26fcd7ebdc3"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000013"), new Guid("45193089-0738-40c2-951b-ec481ca21786"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000014"), new Guid("4f1f9cac-418b-4356-94c6-144eac70c0a9"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000015"), new Guid("5514f903-232a-4866-9e0b-4740b56de8fc"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000016"), new Guid("6119f1a3-884c-4f22-9fa4-401e55917378"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000017"), new Guid("617747ee-a832-47be-aa30-c99310456113"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000018"), new Guid("632691d7-db1b-4fb5-9e83-893250e14474"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000019"), new Guid("71e4bb90-31dd-4cf7-9628-9eb8462e8a03"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000020"), new Guid("75c32438-809f-4f31-9ae3-d79ad2b56c29"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000021"), new Guid("8441c8de-e7e7-4faa-9869-99e95fa0791b"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000022"), new Guid("90eae6b2-6395-49a8-9bfa-df51eac66c90"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000023"), new Guid("a7af794d-dbdc-4a05-a4f4-ebbb1ef0a0fb"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000024"), new Guid("a807403e-9e93-4a3b-9a4b-6eb9a6406687"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000025"), new Guid("c3219456-5c5d-4d18-9980-032627844744"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000026"), new Guid("cce185ad-c8d0-48ba-ad96-2ed4508b7dad"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000027"), new Guid("d226779e-6c47-46a2-96cf-89f6c7502018"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000028"), new Guid("d5d3d965-f59c-46ce-8bb4-929cc261491a"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000029"), new Guid("d68b00ec-3ee2-4069-aa06-c74dce1946ce"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000030"), new Guid("e7cc43a2-1eb1-4df4-837a-e264d386a235"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000031"), new Guid("eb3228bc-8b90-41b5-8a5a-e9faaf5e9048"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000032"), new Guid("f5071dec-ea3e-4106-8d52-bb3f59fdb3aa"), 0.0 },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000033"), new Guid("f6f06957-a84d-4071-87d0-4b08e29888c5"), 0.0 }
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Games_DireTeamId",
                 table: "Games",
-                column: "DireTeamId");
+                column: "DireTeamId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Games_RadiantTeamId",
                 table: "Games",
-                column: "RadiantTeamId");
+                column: "RadiantTeamId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PlayerDetails_PlayerId",
@@ -433,11 +439,40 @@ namespace DotaNerf.Migrations
                 name: "IX_PlayerTeams_TeamsId",
                 table: "PlayerTeams",
                 column: "TeamsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teams_GameId",
+                table: "Teams",
+                column: "GameId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Games_Teams_DireTeamId",
+                table: "Games",
+                column: "DireTeamId",
+                principalTable: "Teams",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Games_Teams_RadiantTeamId",
+                table: "Games",
+                column: "RadiantTeamId",
+                principalTable: "Teams",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Games_Teams_DireTeamId",
+                table: "Games");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Games_Teams_RadiantTeamId",
+                table: "Games");
+
             migrationBuilder.DropTable(
                 name: "PlayerDetails");
 
@@ -451,9 +486,6 @@ namespace DotaNerf.Migrations
                 name: "PlayerTeams");
 
             migrationBuilder.DropTable(
-                name: "Games");
-
-            migrationBuilder.DropTable(
                 name: "Heroes");
 
             migrationBuilder.DropTable(
@@ -461,6 +493,9 @@ namespace DotaNerf.Migrations
 
             migrationBuilder.DropTable(
                 name: "Teams");
+
+            migrationBuilder.DropTable(
+                name: "Games");
         }
     }
 }

@@ -11,6 +11,7 @@ public class PlayerDetails
     public int TotalGames { get; set; } 
     public int GamesWon { get; set; }
     public int GamesLost { get; set; }
+    public PlayerGroup PlayerGroup { get; set; }
 
     // Foreign key for Player
     public Guid PlayerId { get; set; }
@@ -18,4 +19,11 @@ public class PlayerDetails
     // Navigation property to Player
     [JsonIgnore]
     public Player Player { get; set; } = null!;
+}
+
+public enum PlayerGroup
+{
+    Kulalii,
+    Poznati,
+    Randoms
 }

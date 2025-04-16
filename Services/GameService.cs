@@ -152,5 +152,6 @@ public class GameService : IGameService
         {
             playerDetails.GamesLost++;
         }
+        playerDetails.Winrate = Math.Round((double)playerDetails.GamesWon / playerDetails.TotalGames * 100);
     }
 }
