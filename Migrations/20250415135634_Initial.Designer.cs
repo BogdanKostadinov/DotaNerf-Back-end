@@ -4,6 +4,7 @@ using DotaNerf.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DotaNerf.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250415135634_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -909,9 +912,6 @@ namespace DotaNerf.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
-                    b.Property<int>("PlayerGroup")
-                        .HasColumnType("int");
-
                     b.Property<Guid>("PlayerId")
                         .HasColumnType("uniqueidentifier");
 
@@ -936,7 +936,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000001"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 0,
                             PlayerId = new Guid("013986ba-03a2-4e5f-a54e-1e1a677c5593"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -946,7 +945,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000002"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 0,
                             PlayerId = new Guid("0de33ebf-6f2d-4f37-a41f-c92a8387a16f"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -956,7 +954,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000003"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 1,
                             PlayerId = new Guid("158f0cd7-315a-4d60-8a4a-3537766b2958"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -966,7 +963,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000004"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 1,
                             PlayerId = new Guid("2637179a-65b0-4af7-b7b2-0dc0b044a9c6"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -976,7 +972,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000005"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 0,
                             PlayerId = new Guid("2f08b795-c2ee-460f-9102-489dcb034a59"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -986,7 +981,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000006"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 0,
                             PlayerId = new Guid("2f25fdca-7016-4c2b-904e-154813b60210"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -996,7 +990,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000007"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 1,
                             PlayerId = new Guid("2f3ab1f0-f334-4239-8793-87d92239d5bb"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1006,7 +999,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000008"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 0,
                             PlayerId = new Guid("32830ea1-39ad-469c-96bd-3040f2d49f6a"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1016,7 +1008,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000009"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 0,
                             PlayerId = new Guid("35b0e246-4545-4079-b258-8ba67ac756fa"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1026,7 +1017,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000010"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 0,
                             PlayerId = new Guid("3d6a9560-592d-49e5-bfe6-29d2fe589d42"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1036,7 +1026,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000011"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 1,
                             PlayerId = new Guid("3e85b928-0684-4300-9a23-c4d3c64ab59f"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1046,7 +1035,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000012"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 0,
                             PlayerId = new Guid("40270ce1-9235-4720-9097-b26fcd7ebdc3"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1056,7 +1044,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000013"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 0,
                             PlayerId = new Guid("45193089-0738-40c2-951b-ec481ca21786"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1066,7 +1053,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000014"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 1,
                             PlayerId = new Guid("4f1f9cac-418b-4356-94c6-144eac70c0a9"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1076,7 +1062,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000015"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 1,
                             PlayerId = new Guid("5514f903-232a-4866-9e0b-4740b56de8fc"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1086,7 +1071,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000016"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 1,
                             PlayerId = new Guid("6119f1a3-884c-4f22-9fa4-401e55917378"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1096,7 +1080,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000017"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 2,
                             PlayerId = new Guid("617747ee-a832-47be-aa30-c99310456113"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1106,7 +1089,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000018"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 2,
                             PlayerId = new Guid("632691d7-db1b-4fb5-9e83-893250e14474"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1116,7 +1098,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000019"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 2,
                             PlayerId = new Guid("71e4bb90-31dd-4cf7-9628-9eb8462e8a03"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1126,7 +1107,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000020"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 1,
                             PlayerId = new Guid("75c32438-809f-4f31-9ae3-d79ad2b56c29"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1136,7 +1116,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000021"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 2,
                             PlayerId = new Guid("8441c8de-e7e7-4faa-9869-99e95fa0791b"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1146,7 +1125,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000022"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 2,
                             PlayerId = new Guid("90eae6b2-6395-49a8-9bfa-df51eac66c90"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1156,7 +1134,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000023"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 2,
                             PlayerId = new Guid("a7af794d-dbdc-4a05-a4f4-ebbb1ef0a0fb"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1166,7 +1143,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000024"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 2,
                             PlayerId = new Guid("a807403e-9e93-4a3b-9a4b-6eb9a6406687"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1176,7 +1152,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000025"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 2,
                             PlayerId = new Guid("c3219456-5c5d-4d18-9980-032627844744"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1186,7 +1161,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000026"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 1,
                             PlayerId = new Guid("cce185ad-c8d0-48ba-ad96-2ed4508b7dad"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1196,7 +1170,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000027"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 1,
                             PlayerId = new Guid("d226779e-6c47-46a2-96cf-89f6c7502018"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1206,7 +1179,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000028"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 2,
                             PlayerId = new Guid("d5d3d965-f59c-46ce-8bb4-929cc261491a"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1216,7 +1188,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000029"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 2,
                             PlayerId = new Guid("d68b00ec-3ee2-4069-aa06-c74dce1946ce"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1226,7 +1197,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000030"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 2,
                             PlayerId = new Guid("e7cc43a2-1eb1-4df4-837a-e264d386a235"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1236,7 +1206,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000031"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 2,
                             PlayerId = new Guid("eb3228bc-8b90-41b5-8a5a-e9faaf5e9048"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1246,7 +1215,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000032"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 2,
                             PlayerId = new Guid("f5071dec-ea3e-4106-8d52-bb3f59fdb3aa"),
                             TotalGames = 0,
                             Winrate = 0.0
@@ -1256,7 +1224,6 @@ namespace DotaNerf.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-000000000033"),
                             GamesLost = 0,
                             GamesWon = 0,
-                            PlayerGroup = 2,
                             PlayerId = new Guid("f6f06957-a84d-4071-87d0-4b08e29888c5"),
                             TotalGames = 0,
                             Winrate = 0.0

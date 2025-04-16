@@ -11,7 +11,6 @@ public class Player
     public Guid PlayerDetailsId { get; set; }
     public PlayerDetails PlayerDetails { get; set; } = null!;
 
-
     [JsonIgnore]
     public List<Team> Teams { get; set; } = new();
     [JsonIgnore]
