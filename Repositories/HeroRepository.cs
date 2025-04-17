@@ -1,7 +1,6 @@
 ﻿using DotaNerf.Data;
 using DotaNerf.Entities;
 using DotaNerf.Interfaces;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotaNerf.Repositories;
@@ -18,5 +17,10 @@ public class HeroRepository : IHeroRepository
     public async Task<Hero?> GetHeroByIdAsync(int id)
     {
         return await _context.Heroes.FirstOrDefaultAsync(h => h.Id == id);
+    }
+
+    public async Task<IEnumerable<Hero>> GetHeroesAsync()
+    {
+        return await _context.Heroes.ToListAsync();
     }
 }

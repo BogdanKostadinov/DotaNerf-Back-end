@@ -1,6 +1,5 @@
-using DotaNerf.Data;
+using DotaNerf.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace DotaNerf.Controllers;
 
@@ -8,17 +7,17 @@ namespace DotaNerf.Controllers;
 [Route("/heroes")]
 public class HeroController : ControllerBase
 {
-    private readonly DataContext _context;
+    private readonly IHeroRepository _heroRepository;
 
-    public HeroController(DataContext context)
+    public HeroController(IHeroRepository heroRepository)
     {
-        _context = context;
+        _heroRepository = heroRepository;
     }
 
     [HttpGet(Name = "GetHeroes")]
     public async Task<IActionResult> GetHeroesAsync()
     {
-        var heroes = await _context.Heroes.ToListAsync();
+        var heroes = await _heroRepository.GetHeroesAsync();
         if (!heroes.Any())
         {
             return NotFound("No heroes found in the database.");
@@ -29,8 +28,7 @@ public class HeroController : ControllerBase
     [HttpGet("{id}", Name = "GetHero")]
     public async Task<IActionResult> GetHeroAsync(int id)
     {
-        var hero = await _context.Heroes
-            .FirstOrDefaultAsync(m => m.Id == id);
+        var hero = await _heroRepository.GetHeroByIdAsync(id);
 
         if (hero is null)
         {
