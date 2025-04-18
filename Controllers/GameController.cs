@@ -27,12 +27,12 @@ public class GameController : ControllerBase
     {
         var games = await _gameRepository.GetGamesAsync();
 
-        var gameDtos = games.Select(game => _mapper.Map<GameDTO>(game, opt => opt.Items["GameId"] = game.Id)).ToList();
-
         if (!games.Any())
         {
             return NotFound("No games found in the database.");
         }
+
+        var gameDtos = games.Select(game => _mapper.Map<GameDTO>(game, opt => opt.Items["GameId"] = game.Id)).ToList();
 
         return Ok(gameDtos);
     }
@@ -49,6 +49,15 @@ public class GameController : ControllerBase
 
         var gameDto = _mapper.Map<GameDTO>(game, opt => opt.Items["GameId"] = id);
         return Ok(gameDto);
+    }
+
+    [HttpGet("player/{playerId}")]
+    public async Task<IActionResult> GetGamesForPlayerAsync(Guid playerId)
+    {
+        var games = await _gameRepository.GetGamesForPlayerAsync(playerId);
+
+        var gameDtos = games.Select(game => _mapper.Map<GameDTO>(game, opt => opt.Items["GameId"] = game.Id)).ToList();
+        return Ok(gameDtos);
     }
 
     [HttpPost]
