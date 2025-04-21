@@ -40,6 +40,7 @@ public class GameService : IGameService
         var newGame = new Game
         {
             DateCreated = DateTime.UtcNow,
+            LastModified = DateTime.UtcNow,
             WinningTeam = createGameDto.WinningTeam,
             RadiantTeam = new Team
             {
