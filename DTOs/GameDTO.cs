@@ -9,6 +9,8 @@ public class GameDTO
     public required TeamDTO RadiantTeam { get; set; }
     public required TeamDTO DireTeam { get; set; }
     public DateTime DateCreated { get; set; }
+    public DateTime LastModified { get; set; }
+
 }
 
 public class CreateGameDTO
