@@ -17,3 +17,9 @@ public class CreatePlayerStatsDTO
     public int? Assists { get; set; }
 }
 
+public class UpdatePlayerStatsDTO
+{
+    public required int HeroPlayedId { get; set; }
+}
+
+

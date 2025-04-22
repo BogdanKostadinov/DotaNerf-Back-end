@@ -80,4 +80,10 @@ public class GameRepository : IGameRepository
         return game;
     }
 
+    public async Task<Game> UpdateGameAsync(Game game)
+    {
+        _context.Games.Update(game);
+        await _context.SaveChangesAsync();
+        return game;
+    }
 }

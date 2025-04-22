@@ -13,8 +13,8 @@ public class Game
 
     public Guid RadiantTeamId { get; set; }
     public Guid DireTeamId { get; set; }
-    public Team? RadiantTeam { get; set; }
-    public Team? DireTeam { get; set; }
+    public Team RadiantTeam { get; set; } = null!;
+    public Team DireTeam { get; set; } = null!;
 
     // Navigation properties
     [JsonIgnore]

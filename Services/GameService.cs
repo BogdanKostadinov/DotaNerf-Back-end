@@ -1,6 +1,7 @@
 ﻿using DotaNerf.DTOs;
 using DotaNerf.Entities;
 using DotaNerf.Interfaces;
+using System.Numerics;
 
 namespace DotaNerf.Services;
 
@@ -140,6 +141,89 @@ public class GameService : IGameService
         await _gameRepository.CreateGameAsync(newGame);
 
         return newGame.Id;
+    }
+
+    public async Task<Guid> UpdateGameAsync(UpdateGameDTO updateGameDto)
+    {
+        // Validate the incoming data
+        if (updateGameDto == null)
+        {
+            throw new ArgumentNullException(nameof(updateGameDto));
+        }
+        if (updateGameDto.RadiantTeam == null || updateGameDto.DireTeam == null)
+        {
+            throw new ArgumentException("Both RadiantTeam and DireTeam are required");
+        }
+        if (!updateGameDto.RadiantTeam.Players.Any() || !updateGameDto.DireTeam.Players.Any())
+        {
+            throw new ArgumentException("Both teams must have players");
+        }
+
+        var game = await _gameRepository.GetGameByIdAsync(updateGameDto.Id);
+
+        if (game == null)
+        {
+            throw new KeyNotFoundException($"Game with ID {updateGameDto.Id} not found.");
+        }
+
+        // Process RadiantTeam players
+        foreach (var playerDto in updateGameDto.RadiantTeam.Players)
+        {
+            var existingPlayer = await _playerRepository.GetPlayerByIdAsync(playerDto.Id);
+            var existingHero = await _heroRepository.GetHeroByIdAsync(playerDto.PlayerStats.HeroPlayedId);
+
+            if (existingHero == null)
+            {
+                throw new KeyNotFoundException($"Hero with ID {playerDto.PlayerStats.HeroPlayedId} not found in RadiantTeam.");
+            }
+
+            if (existingPlayer != null)
+            {
+                var playerStats = existingPlayer.PlayerStats
+                    .FirstOrDefault(ps => ps.GameId == game.Id && ps.TeamId == game.RadiantTeam.Id);
+
+                if (playerStats != null)
+                {
+                    playerStats.HeroPlayedId = existingHero.Id;
+                }
+            }
+            else
+            {
+                throw new KeyNotFoundException($"Player with ID {playerDto.Id} not found in RadiantTeam.");
+            }
+        }
+
+        // Process DireTeam players (similar code as RadiantTeam)
+        foreach (var playerDto in updateGameDto.DireTeam.Players)
+        {
+            var existingPlayer = await _playerRepository.GetPlayerByIdAsync(playerDto.Id);
+            var existingHero = await _heroRepository.GetHeroByIdAsync(playerDto.PlayerStats.HeroPlayedId);
+
+            if (existingHero == null)
+            {
+                throw new KeyNotFoundException($"Hero with ID {playerDto.PlayerStats.HeroPlayedId} not found in Dire Team.");
+            }
+
+            if (existingPlayer != null)
+            {
+                var playerStats = existingPlayer.PlayerStats
+                    .FirstOrDefault(ps => ps.GameId == game.Id && ps.TeamId == game.DireTeam.Id);
+
+                if (playerStats != null)
+                {
+                    playerStats.HeroPlayedId = existingHero.Id;
+                }
+            }
+            else
+            {
+                throw new KeyNotFoundException($"Player with ID {playerDto.Id} not found in DireTeam.");
+            }
+        }
+
+        game.LastModified = DateTime.UtcNow;
+        await _gameRepository.UpdateGameAsync(game);
+
+        return game.Id;
     }
 
     private void UpdatePlayerGameStats(PlayerDetails playerDetails, bool isWinner)

@@ -85,5 +85,31 @@ public class GameController : ControllerBase
             return StatusCode(500, $"An error occurred while creating the game. {ex}");
         }
     }
+
+    [HttpPut]
+    public async Task<IActionResult> UpdateGameAsync([FromBody] UpdateGameDTO updateGameDto)
+    {
+        try
+        {
+            var gameId = await _gameService.UpdateGameAsync(updateGameDto);
+            return Ok(new { Message = "Game updated successfully", GameId = gameId });
+        }
+        catch (ArgumentNullException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"An error occurred while creating the game. {ex}");
+        }
+    }
 }
 

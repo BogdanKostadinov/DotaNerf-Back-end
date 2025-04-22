@@ -19,3 +19,10 @@ public class CreateGameDTO
     public required CreateTeamDTO RadiantTeam { get; set; }
     public required CreateTeamDTO DireTeam { get; set; }
 }
+
+public class UpdateGameDTO
+{
+    public Guid Id { get; set; }
+    public required UpdateTeamDTO RadiantTeam { get; set; }
+    public required UpdateTeamDTO DireTeam { get; set; }
+}
