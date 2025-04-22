@@ -13,6 +13,11 @@ public class GameMappings : Profile
             .ForMember(dest => dest.RadiantTeam, opt => opt.MapFrom(src => src.RadiantTeam))
             .ForMember(dest => dest.DireTeam, opt => opt.MapFrom(src => src.DireTeam));
 
+        CreateMap<UpdateGameDTO, Game>()
+            .ForMember(dest => dest.WinningTeam, opt => opt.Ignore())
+            .ForMember(dest => dest.RadiantTeam, opt => opt.MapFrom(src => src.RadiantTeam))
+            .ForMember(dest => dest.DireTeam, opt => opt.MapFrom(src => src.DireTeam));
+
         CreateMap<Game, GameDTO>()
             .ForMember(dest => dest.RadiantTeam, opt => opt.MapFrom(src => src.RadiantTeam))
             .ForMember(dest => dest.DireTeam, opt => opt.MapFrom(src => src.DireTeam));

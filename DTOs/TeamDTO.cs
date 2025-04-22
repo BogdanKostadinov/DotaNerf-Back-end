@@ -13,3 +13,8 @@ public class CreateTeamDTO
     public TeamName Name { get; set; }
     public List<CreatePlayerDTO> Players { get; set; } = new();
 }
+
+public class UpdateTeamDTO
+{
+    public List<UpdatePlayerDTO> Players { get; set; } = new();
+}
