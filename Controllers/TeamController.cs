@@ -1,6 +1,5 @@
 ﻿using DotaNerf.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace DotaNerf.Controllers;
 

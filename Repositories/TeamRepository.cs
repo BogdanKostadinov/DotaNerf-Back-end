@@ -29,11 +29,7 @@ public class TeamRepository : ITeamRepository
     }
     public async Task DeleteTeamAsync(Guid id)
     {
-        var team = await _context.Teams.FirstOrDefaultAsync(t => t.Id == id);
-        if (team == null)
-        {
-            throw new KeyNotFoundException($"Team with ID {id} not found.");
-        }
+        var team = GetTeamAsync(id).Result;
 
         _context.Teams.Remove(team);
         await _context.SaveChangesAsync();
