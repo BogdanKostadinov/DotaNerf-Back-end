@@ -1,6 +1,5 @@
-﻿using DotaNerf.Data;
+﻿using DotaNerf.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace DotaNerf.Controllers;
 
@@ -8,19 +7,22 @@ namespace DotaNerf.Controllers;
 [Route("/teams")]
 public class TeamController : ControllerBase
 {
-    private readonly DataContext _context;
+    private readonly ITeamRepository _teamRepository;
 
-    public TeamController(DataContext dataContext)
+    public TeamController(ITeamRepository teamRepository)
     {
-        _context = dataContext;
+        _teamRepository = teamRepository;
     }
 
     [HttpGet(Name = "GetTeams")]
     public async Task<IActionResult> GetTeamsAsync()
     {
-        var teams = await _context.Teams
-            .Include(t => t.Players)
-            .ToListAsync();
+        var teams = _teamRepository.GetTeamsAsync();
+
+        if (!teams.Result.Any())
+        {
+            return NoContent();
+        }
 
         return Ok(teams);
     }
@@ -28,15 +30,16 @@ public class TeamController : ControllerBase
     [HttpGet("{id}", Name = "GetTeam")]
     public async Task<IActionResult> GetTeamAsync(Guid id)
     {
-        var team = await _context.Teams
-            .Include(t => t.Players)
-            .FirstOrDefaultAsync(team => team.Id == id);
-
+        var team = await _teamRepository.GetTeamAsync(id);
         if (team is null)
         {
             return NotFound();
         }
-
         return Ok(team);
+    }
+    [HttpDelete("{id}", Name = "DeleteTeam")]
+    public async void DeleteTeamAsync(Guid id)
+    {
+        await _teamRepository.DeleteTeamAsync(id);
     }
 }
