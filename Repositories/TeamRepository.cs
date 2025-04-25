@@ -12,6 +12,12 @@ public class TeamRepository : ITeamRepository
     {
         _context = context;
     }
+    public async Task<IEnumerable<Team>> GetTeamsAsync()
+    {
+        return await _context.Teams
+            .Include(t => t.Players)
+            .ToListAsync();
+    }
     public async Task<Team> GetTeamAsync(Guid id)
     {
         var team = await _context.Teams.FirstOrDefaultAsync(t => t.Id == id);
@@ -23,9 +29,14 @@ public class TeamRepository : ITeamRepository
     }
     public async Task DeleteTeamAsync(Guid id)
     {
-        var team = GetTeamAsync(id).Result;
+        var team = await _context.Teams.FirstOrDefaultAsync(t => t.Id == id);
+        if (team == null)
+        {
+            throw new KeyNotFoundException($"Team with ID {id} not found.");
+        }
 
         _context.Teams.Remove(team);
         await _context.SaveChangesAsync();
     }
+
 }
