@@ -1,6 +1,8 @@
-﻿using DotaNerf.DTOs;
+﻿using Azure.Core;
+using DotaNerf.DTOs;
 using DotaNerf.Entities;
 using DotaNerf.Interfaces;
+using System.Globalization;
 using System.Numerics;
 
 namespace DotaNerf.Services;
@@ -42,6 +44,7 @@ public class GameService : IGameService
         {
             DateCreated = DateTime.UtcNow,
             LastModified = DateTime.UtcNow,
+            Duration = TimeSpan.ParseExact(createGameDto.Duration, @"hh\:mm\:ss", CultureInfo.InvariantCulture),
             WinningTeam = createGameDto.WinningTeam,
             RadiantTeam = new Team
             {

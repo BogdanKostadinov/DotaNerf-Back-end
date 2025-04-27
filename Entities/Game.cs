@@ -10,6 +10,7 @@ public class Game
     public required TeamName WinningTeam { get; set; }
     public DateTime DateCreated { get; set; } = DateTime.UtcNow;
     public DateTime LastModified { get; set; }
+    public TimeSpan Duration { get; set; }
 
     public Guid RadiantTeamId { get; set; }
     public Guid DireTeamId { get; set; }
