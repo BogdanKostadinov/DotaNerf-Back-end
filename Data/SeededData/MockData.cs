@@ -275,167 +275,181 @@ public static class MockData
             },
         };
     }
+
+    public static List<User> SeedUsers()
+    {
+        return new List<User>
+        {
+            new User
+            {
+                Id = Guid.Parse("550e8400-e29b-41d4-a716-446655440000"),
+                UserName = "admin",
+                Email = "admin@dotanerf.com",
+                Password = "admin"
+            }
+        };
+    }
 }
 
-    //public static List<PlayerDetails> SeedPlayerDetails()
-    //{
-    //    return new List<PlayerDetails>
-    //    {
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("d5f49d5e-4f4b-4c8a-9e4e-4f4b7c8a9e4e"),
-    //            PlayerId = DummyPlayerId,
-    //            Winrate = 60,
-    //            TotalGames = 15,
-    //            GamesWon = 9,
-    //            GamesLost = 6
-    //        },
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("e6f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
-    //            PlayerId = VeniPlayerId,
-    //            Winrate = 59,
-    //            TotalGames = 17,
-    //            GamesWon = 10,
-    //            GamesLost = 7
-    //        },
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("d4f49d5e-5f4b-4c8a-9e4e-5f4b7c8a9e4e"),
-    //            PlayerId = new Guid("d4f49d5e-4f4b-4c8a-9e4e-4f4b7c8a9e4e"),
-    //            Winrate = 60,
-    //            TotalGames = 15,
-    //            GamesWon = 9,
-    //            GamesLost = 6
-    //        },
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("e5f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
-    //            PlayerId = new Guid("e5f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
-    //            Winrate = 59,
-    //            TotalGames = 17,
-    //            GamesWon = 10,
-    //            GamesLost = 7
-    //        },
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("f6f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"),
-    //            PlayerId = new Guid("f6f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"),
-    //            Winrate = 50,
-    //            TotalGames = 14,
-    //            GamesWon = 7,
-    //            GamesLost = 7
-    //        },
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("07f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"),
-    //            PlayerId = new Guid("07f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"),
-    //            Winrate = 52,
-    //            TotalGames = 19,
-    //            GamesWon = 10,
-    //            GamesLost = 9
-    //        },
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("18f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"),
-    //            PlayerId = new Guid("18f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"),
-    //            Winrate = 40,
-    //            TotalGames = 15,
-    //            GamesWon = 6,
-    //            GamesLost = 9
-    //        },
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("29f99d5e-9f4b-4c8a-9f9e-9f4b2c8a9f9e"),
-    //            PlayerId = new Guid("29f99d5e-9f4b-4c8a-9f9e-9f4b2c8a9f9e"),
-    //            Winrate = 38,
-    //            TotalGames = 16,
-    //            GamesWon = 6,
-    //            GamesLost = 10
-    //        },
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("30f09d5e-0f4b-4c8a-9f0e-0f4b3c8a9f0e"),
-    //            PlayerId = new Guid("30f09d5e-0f4b-4c8a-9f0e-0f4b3c8a9f0e"),
-    //            Winrate = 37,
-    //            TotalGames = 19,
-    //            GamesWon = 7,
-    //            GamesLost = 12
-    //        },
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("41f19d5e-1f4b-4c8a-9f1e-1f4b4c8a9f1e"),
-    //            PlayerId = new Guid("41f19d5e-1f4b-4c8a-9f1e-1f4b4c8a9f1e"),
-    //            Winrate = 20,
-    //            TotalGames = 5,
-    //            GamesWon = 1,
-    //            GamesLost = 4
-    //        },
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("52f29d5e-2f4b-4c8a-9f2e-2f4b5c8a9f2e"),
-    //            PlayerId = new Guid("52f29d5e-2f4b-4c8a-9f2e-2f4b5c8a9f2e"),
-    //            Winrate = 25,
-    //            TotalGames = 8,
-    //            GamesWon = 2,
-    //            GamesLost = 6
-    //        },
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("63f39d5e-3f4b-4c8a-9f3e-3f4b6c8a9f3e"),
-    //            PlayerId = new Guid("63f39d5e-3f4b-4c8a-9f3e-3f4b6c8a9f3e"),
-    //            Winrate = 0,
-    //            TotalGames = 6,
-    //            GamesWon = 0,
-    //            GamesLost = 6
-    //        },
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("74f49d5e-4f4b-4c8a-9f4e-4f4b7c8a9f4e"),
-    //            PlayerId = new Guid("74f49d5e-4f4b-4c8a-9f4e-4f4b7c8a9f4e"),
-    //            Winrate = 62,
-    //            TotalGames = 8,
-    //            GamesWon = 5,
-    //            GamesLost = 3
-    //        },
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("85f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
-    //            PlayerId = new Guid("85f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
-    //            Winrate = 0,
-    //            TotalGames = 0,
-    //            GamesWon = 0,
-    //            GamesLost = 0
-    //        },
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("96f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"),
-    //            PlayerId = new Guid("96f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"),
-    //            Winrate = 0,
-    //            TotalGames = 0,
-    //            GamesWon = 0,
-    //            GamesLost = 0
-    //        },
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("a7f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"),
-    //            PlayerId = new Guid("a7f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"),
-    //            Winrate = 0,
-    //            TotalGames = 0,
-    //            GamesWon = 0,
-    //            GamesLost = 0
-    //        },
-    //        new PlayerDetails
-    //        {
-    //            Id = new Guid("b8f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"),
-    //            PlayerId = new Guid("b8f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"),
-    //            Winrate = 0,
-    //            TotalGames = 0,
-    //            GamesWon = 0,
-    //            GamesLost = 0
-    //        }
-    //    };
-    //}
+//public static List<PlayerDetails> SeedPlayerDetails()
+//{
+//    return new List<PlayerDetails>
+//    {
+//        new PlayerDetails
+//        {
+//            Id = new Guid("d5f49d5e-4f4b-4c8a-9e4e-4f4b7c8a9e4e"),
+//            PlayerId = DummyPlayerId,
+//            Winrate = 60,
+//            TotalGames = 15,
+//            GamesWon = 9,
+//            GamesLost = 6
+//        },
+//        new PlayerDetails
+//        {
+//            Id = new Guid("e6f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
+//            PlayerId = VeniPlayerId,
+//            Winrate = 59,
+//            TotalGames = 17,
+//            GamesWon = 10,
+//            GamesLost = 7
+//        },
+//        new PlayerDetails
+//        {
+//            Id = new Guid("d4f49d5e-5f4b-4c8a-9e4e-5f4b7c8a9e4e"),
+//            PlayerId = new Guid("d4f49d5e-4f4b-4c8a-9e4e-4f4b7c8a9e4e"),
+//            Winrate = 60,
+//            TotalGames = 15,
+//            GamesWon = 9,
+//            GamesLost = 6
+//        },
+//        new PlayerDetails
+//        {
+//            Id = new Guid("e5f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
+//            PlayerId = new Guid("e5f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
+//            Winrate = 59,
+//            TotalGames = 17,
+//            GamesWon = 10,
+//            GamesLost = 7
+//        },
+//        new PlayerDetails
+//        {
+//            Id = new Guid("f6f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"),
+//            PlayerId = new Guid("f6f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"),
+//            Winrate = 50,
+//            TotalGames = 14,
+//            GamesWon = 7,
+//            GamesLost = 7
+//        },
+//        new PlayerDetails
+//        {
+//            Id = new Guid("07f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"),
+//            PlayerId = new Guid("07f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"),
+//            Winrate = 52,
+//            TotalGames = 19,
+//            GamesWon = 10,
+//            GamesLost = 9
+//        },
+//        new PlayerDetails
+//        {
+//            Id = new Guid("18f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"),
+//            PlayerId = new Guid("18f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"),
+//            Winrate = 40,
+//            TotalGames = 15,
+//            GamesWon = 6,
+//            GamesLost = 9
+//        },
+//        new PlayerDetails
+//        {
+//            Id = new Guid("29f99d5e-9f4b-4c8a-9f9e-9f4b2c8a9f9e"),
+//            PlayerId = new Guid("29f99d5e-9f4b-4c8a-9f9e-9f4b2c8a9f9e"),
+//            Winrate = 38,
+//            TotalGames = 16,
+//            GamesWon = 6,
+//            GamesLost = 10
+//        },
+//        new PlayerDetails
+//        {
+//            Id = new Guid("30f09d5e-0f4b-4c8a-9f0e-0f4b3c8a9f0e"),
+//            PlayerId = new Guid("30f09d5e-0f4b-4c8a-9f0e-0f4b3c8a9f0e"),
+//            Winrate = 37,
+//            TotalGames = 19,
+//            GamesWon = 7,
+//            GamesLost = 12
+//        },
+//        new PlayerDetails
+//        {
+//            Id = new Guid("41f19d5e-1f4b-4c8a-9f1e-1f4b4c8a9f1e"),
+//            PlayerId = new Guid("41f19d5e-1f4b-4c8a-9f1e-1f4b4c8a9f1e"),
+//            Winrate = 20,
+//            TotalGames = 5,
+//            GamesWon = 1,
+//            GamesLost = 4
+//        },
+//        new PlayerDetails
+//        {
+//            Id = new Guid("52f29d5e-2f4b-4c8a-9f2e-2f4b5c8a9f2e"),
+//            PlayerId = new Guid("52f29d5e-2f4b-4c8a-9f2e-2f4b5c8a9f2e"),
+//            Winrate = 25,
+//            TotalGames = 8,
+//            GamesWon = 2,
+//            GamesLost = 6
+//        },
+//        new PlayerDetails
+//        {
+//            Id = new Guid("63f39d5e-3f4b-4c8a-9f3e-3f4b6c8a9f3e"),
+//            PlayerId = new Guid("63f39d5e-3f4b-4c8a-9f3e-3f4b6c8a9f3e"),
+//            Winrate = 0,
+//            TotalGames = 6,
+//            GamesWon = 0,
+//            GamesLost = 6
+//        },
+//        new PlayerDetails
+//        {
+//            Id = new Guid("74f49d5e-4f4b-4c8a-9f4e-4f4b7c8a9f4e"),
+//            PlayerId = new Guid("74f49d5e-4f4b-4c8a-9f4e-4f4b7c8a9f4e"),
+//            Winrate = 62,
+//            TotalGames = 8,
+//            GamesWon = 5,
+//            GamesLost = 3
+//        },
+//        new PlayerDetails
+//        {
+//            Id = new Guid("85f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
+//            PlayerId = new Guid("85f59d5e-5f4b-4c8a-9f5e-5f4b8c8a9f5e"),
+//            Winrate = 0,
+//            TotalGames = 0,
+//            GamesWon = 0,
+//            GamesLost = 0
+//        },
+//        new PlayerDetails
+//        {
+//            Id = new Guid("96f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"),
+//            PlayerId = new Guid("96f69d5e-6f4b-4c8a-9f6e-6f4b9c8a9f6e"),
+//            Winrate = 0,
+//            TotalGames = 0,
+//            GamesWon = 0,
+//            GamesLost = 0
+//        },
+//        new PlayerDetails
+//        {
+//            Id = new Guid("a7f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"),
+//            PlayerId = new Guid("a7f79d5e-7f4b-4c8a-9f7e-7f4b0c8a9f7e"),
+//            Winrate = 0,
+//            TotalGames = 0,
+//            GamesWon = 0,
+//            GamesLost = 0
+//        },
+//        new PlayerDetails
+//        {
+//            Id = new Guid("b8f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"),
+//            PlayerId = new Guid("b8f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e"),
+//            Winrate = 0,
+//            TotalGames = 0,
+//            GamesWon = 0,
+//            GamesLost = 0
+//        }
+//    };
+//}
 public static class PlayerIds
 {
     public static readonly Guid VeniPlayerId = new Guid("0de33ebf-6f2d-4f37-a41f-c92a8387a16f");
@@ -473,3 +487,5 @@ public static class PlayerIds
     public static readonly Guid ReiPlayerId = new Guid("f6f06957-a84d-4071-87d0-4b08e29888c5");
     public static readonly Guid UnknownPlayerId = new Guid("b8f89d5e-8f4b-4c8a-9f8e-8f4b1c8a9f8e");
 }
+
+
