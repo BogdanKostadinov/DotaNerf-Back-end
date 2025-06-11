@@ -17,6 +17,8 @@ public class DataContext : DbContext
     public DbSet<PlayerDetails> PlayerDetails { get; set; }
     public DbSet<PlayerStats> PlayerStats { get; set; }
     public DbSet<PlayerGame> PlayerGames { get; set; }
+    public DbSet<User> Users { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -28,6 +30,7 @@ public class DataContext : DbContext
         modelBuilder.ApplyConfiguration(new PlayerDetailsConfiguration());
         modelBuilder.ApplyConfiguration(new PlayerStatsConfiguration());
         modelBuilder.ApplyConfiguration(new PlayerGameConfiguration());
+        modelBuilder.ApplyConfiguration(new UserConfiguration());
 
         modelBuilder.Seed();
     }
@@ -54,5 +57,7 @@ public static class DataSeeder
 
         // Seed PlayerStats
         //modelBuilder.Entity<PlayerStats>().HasData(MockData.SeedPlayerStats());
+
+        modelBuilder.Entity<User>().HasData(MockData.SeedUsers());
     }
 }
