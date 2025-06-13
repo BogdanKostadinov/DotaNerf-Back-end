@@ -28,4 +28,13 @@ public class UserRepository : IUserRepository
 
         return user ?? throw new KeyNotFoundException($"User with ID {id} not found.");
     }
+
+    public Task<User?> GetUserByEmailAsync(string email)
+    {
+        var user = _context.Users
+            .AsNoTracking()
+            .FirstOrDefaultAsync(u => u.Email == email);
+
+        return user;
+    }
 }
