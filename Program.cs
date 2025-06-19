@@ -1,4 +1,5 @@
 using DotaNerf.Data;
+using DotaNerf.Entities;
 using DotaNerf.Interfaces;
 using DotaNerf.Repositories;
 using DotaNerf.Services;
@@ -26,6 +27,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Register services
 builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<PasswordHashingService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddDbContext<DataContext>(options =>

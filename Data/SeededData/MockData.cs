@@ -1,4 +1,5 @@
 ﻿using DotaNerf.Entities;
+using DotaNerf.Services;
 
 namespace DotaNerf.Data.SeededData;
 
@@ -278,14 +279,16 @@ public static class MockData
 
     public static List<User> SeedUsers()
     {
+        const string adminPasswordHash = "7Tf0uhxZnxOl1kLN7wzNNg==.CvoJhIIZ2cWEyiWy15Qw/CLHYZQZJE7KvKDW/Wrq7cM=";
+
         return new List<User>
         {
             new User
             {
-                Id = Guid.Parse("550e8400-e29b-41d4-a716-446655440000"),
+                Id = new Guid("550e8400-e29b-41d4-a716-446655440000"),
                 UserName = "admin",
                 Email = "admin@dotanerf.com",
-                Password = "admin"
+                Password = adminPasswordHash
             }
         };
     }
