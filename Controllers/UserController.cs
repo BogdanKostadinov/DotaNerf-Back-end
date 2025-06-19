@@ -12,6 +12,7 @@ public class UserController : ControllerBase
 {
     private readonly IMapper _mapper;
     private readonly IUserRepository _userRepository;
+
     public UserController(
            IMapper mapper,
            IUserRepository userRepository)
@@ -47,6 +48,14 @@ public class UserController : ControllerBase
 
         var userDto = _mapper.Map<UserDTO>(user);
         return Ok(userDto);
+    }
+
+    [HttpPost("create")]
+    public async Task<IActionResult> CreateUserAsync([FromBody] CreateUserDTO request)
+    {
+        var user = await _userRepository.CreateUserAsync(request);
+
+        return Ok(_mapper.Map<UserDTO>(user));
     }
 
     [HttpPost("login")]
