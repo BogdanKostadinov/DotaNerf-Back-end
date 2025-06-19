@@ -12,13 +12,16 @@ public class UserController : ControllerBase
 {
     private readonly IMapper _mapper;
     private readonly IUserRepository _userRepository;
+    private readonly IAuthenticationService _authenticationService;
 
     public UserController(
            IMapper mapper,
-           IUserRepository userRepository)
+           IUserRepository userRepository,
+           IAuthenticationService authenticationService)
     {
         _mapper = mapper;
         _userRepository = userRepository;
+        _authenticationService = authenticationService;
     }
 
     [HttpGet]
@@ -61,18 +64,13 @@ public class UserController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        if (string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))
-        {
-            return BadRequest("Email and password are required.");
-        }
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
 
-        var user = await _userRepository.GetUserByEmailAsync(request.Email);
-        if (user == null || user.Password != request.Password)
-        {
-            return Unauthorized("Invalid credentials");
-        }
-
-        return Ok(_mapper.Map<UserDTO>(user));
+        var user = await _authenticationService.AuthenticateAsync(request.Email, request.Password);
+        return user == null
+            ? Unauthorized("Invalid credentials")
+            : Ok(_mapper.Map<UserDTO>(user));
     }
 }
 
