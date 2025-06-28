@@ -1,9 +1,7 @@
-﻿using Azure.Core;
-using DotaNerf.DTOs;
+﻿using DotaNerf.DTOs;
 using DotaNerf.Entities;
 using DotaNerf.Interfaces;
 using System.Globalization;
-using System.Numerics;
 
 namespace DotaNerf.Services;
 

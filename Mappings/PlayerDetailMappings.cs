@@ -8,7 +8,7 @@ public class PlayerDetailMappings : Profile
 {
     public PlayerDetailMappings()
     {
-        CreateMap<PlayerDetails, PlayerDetailsDTO>();
-        CreateMap<PlayerDetailsDTO, PlayerDetails>();
+        CreateMap<PlayerDetails, PlayerDetailsDTO>().ReverseMap();
+        CreateMap<CreatePlayerDetailsDTO, PlayerDetails>().ReverseMap();
     }
 }
