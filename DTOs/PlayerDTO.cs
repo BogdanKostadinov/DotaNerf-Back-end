@@ -17,6 +17,13 @@ public class CreatePlayerDTO
     public required CreatePlayerStatsDTO PlayerStats { get; set; }
 }
 
+public class CreateNewPlayerDTO
+{
+    public required string Name { get; set; }
+    public PlayerGroup PlayerGroup { get; set; }
+    public required CreatePlayerDetailsDTO PlayerDetails { get; set; }
+}
+
 public class UpdatePlayerDTO
 {
     public Guid Id { get; set; }

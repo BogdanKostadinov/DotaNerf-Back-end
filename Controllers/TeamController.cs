@@ -17,9 +17,9 @@ public class TeamController : ControllerBase
     [HttpGet(Name = "GetTeams")]
     public async Task<IActionResult> GetTeamsAsync()
     {
-        var teams = _teamRepository.GetTeamsAsync();
+        var teams = await _teamRepository.GetTeamsAsync();
 
-        if (!teams.Result.Any())
+        if (!teams.Any())
         {
             return NoContent();
         }
