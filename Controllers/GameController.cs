@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using DotaNerf.DTOs;
 using DotaNerf.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotaNerf.Controllers;
 
 [ApiController]
 [Route("/games")]
+[Authorize]
 public class GameController : ControllerBase
 {
     private readonly IMapper _mapper;
