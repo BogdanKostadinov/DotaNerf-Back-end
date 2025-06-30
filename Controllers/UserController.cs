@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DotaNerf.DTOs;
 using DotaNerf.Interfaces;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotaNerf.Controllers;
@@ -68,9 +67,20 @@ public class UserController : ControllerBase
             return BadRequest(ModelState);
 
         var user = await _authenticationService.AuthenticateAsync(request.Email, request.Password);
-        return user == null
-            ? Unauthorized("Invalid credentials")
-            : Ok(_mapper.Map<UserDTO>(user));
+
+        if (user == null)
+            return Unauthorized("Invalid credentials");
+
+        var token = _authenticationService.GenerateJwtToken(user);
+
+        var response = new LoginResponse
+        {
+            User = _mapper.Map<UserDTO>(user),
+            Token = token,
+            Expiration = DateTime.UtcNow.AddMinutes(60)
+        };
+
+        return Ok(response);
     }
 }
 
